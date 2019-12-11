@@ -95,3 +95,37 @@ class Lectio:
 			columns = []
 		
 		return rows
+
+
+	def getSchedule(self): #Need some work!
+		SCHEDULE_URL = "https://www.lectio.dk/lectio/680/SkemaNy.aspx?type=elev&elevid={}".format(self.studentId)
+
+		result = self.Session.get(SCHEDULE_URL)
+
+		soup = BeautifulSoup(result.text, features="html.parser")
+
+		print(soup.prettify())
+
+
+	def getMessages(self):
+		MESSAGE_URL = "https://www.lectio.dk/lectio/{}/beskeder2.aspx?type=&elevid={}&selectedfolderid=-70".format(self.SchoolId, self.studentId)
+
+		result = self.Session.get(MESSAGE_URL)
+
+		soup = BeautifulSoup(result.text, features="html.parser")
+
+		table = soup.find("table", {"id": "s_m_Content_Content_threadGV"})
+
+		rows = []
+		columns = []
+
+		for row in table.findAll("tr"):
+			#rows.append(row.contents)
+			for row1 in row.findAll('td'):
+				columns.append(row1.text)
+			while("" in columns): 
+				columns.remove("")
+			rows.append(columns)
+			columns = []
+		
+		return rows
