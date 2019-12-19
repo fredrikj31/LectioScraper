@@ -46,7 +46,7 @@ class Lectio:
 		self.studentId = (studentIdFind['href']).replace("/lectio/680/forside.aspx?elevid=", '')
 
 		self.Session = session
-		
+
 
 	def getExercises(self):
 		EXERCISE_URL = "https://www.lectio.dk/lectio/680/OpgaverElev.aspx?elevid={}".format(self.studentId)
@@ -87,12 +87,11 @@ class Lectio:
 
 		soup = BeautifulSoup(result.text, features="html.parser")
 
-		table = soup.find("table", {"id": "s_m_Content_Content_SkemaNyMedNavigation_skema_skematabel"})
+		scheduleBrick = soup.findAll("a", {"class": "s2skemabrik"});
 
-		for row in soup.findAll('table')[0].tbody.findAll('tr'):
-			first_column = row.findAll('th')[0].contents
-			third_column = row.findAll('td')[2].contents
-			print(first_column, third_column)
+		for brick in scheduleBrick:
+			print(brick['data-additionalinfo'])
+			print("---")
 
 		
 
