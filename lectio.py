@@ -84,17 +84,26 @@ class Lectio:
 
 		table = soup.find("table", {"id": "s_m_Content_Content_ExerciseGV"})
 
-		rows = []
-		columns = []
 
-		for row in table.findAll("tr"):
-			#rows.append(row.contents)
-			for row1 in row.findAll('td'):
-				columns.append(row1.text)
-			rows.append(columns)
-			columns = []
-		
-		return rows
+
+		jsonText = {"Exercises": []}
+
+		tableHeaders = table.findAll('th')
+
+		exerciseList = {}
+
+		Id = 0
+
+		for row in table.findAll('td'):
+			exerciseList.setdefault(tableHeaders[Id].text.replace("'", '"'), row.text)
+			Id += 1
+
+			if Id == 11:
+				Id = 0
+				jsonText['Exercises'].append(exerciseList)
+				exerciseList = {}
+
+		return jsonText
 
 
 	def getSchedule(self): #Need some work!
@@ -104,9 +113,17 @@ class Lectio:
 
 		soup = BeautifulSoup(result.text, features="html.parser")
 
-		print(soup.prettify())
+		table = soup.find("table", {"id": "s_m_Content_Content_SkemaNyMedNavigation_skema_skematabel"})
+
+		for row in soup.findAll('table')[0].tbody.findAll('tr'):
+			first_column = row.findAll('th')[0].contents
+			third_column = row.findAll('td')[2].contents
+			print(first_column, third_column)
+
+		
 
 
+	#STILL NEED TO FIX THIS ONE!
 	def getMessages(self):
 		MESSAGE_URL = "https://www.lectio.dk/lectio/{}/beskeder2.aspx?type=&elevid={}&selectedfolderid=-70".format(self.SchoolId, self.studentId)
 
@@ -116,16 +133,21 @@ class Lectio:
 
 		table = soup.find("table", {"id": "s_m_Content_Content_threadGV"})
 
-		rows = []
-		columns = []
+		jsonText = {"Messages": []}
 
-		for row in table.findAll("tr"):
-			#rows.append(row.contents)
-			for row1 in row.findAll('td'):
-				columns.append(row1.text)
-			while("" in columns): 
-				columns.remove("")
-			rows.append(columns)
-			columns = []
-		
-		return rows
+		tableHeaders = table.findAll('th')
+
+		messageList = {}
+
+		Id = 0
+
+		"""for row in table.findAll('td'):
+			messageList.setdefault(tableHeaders[Id].text, row.text)
+			Id += 1
+
+			if Id == 11:
+				Id = 0
+				jsonText['Messages'].append(messageList)
+				messageList = {}"""
+
+		return tableHeaders

@@ -3,6 +3,6 @@ from lectio import Lectio
 
 lec = Lectio(lectioUsername, lectioPassword, "680")
 
-beskeder = lec.getMessages()
+#print(lec.getExercises()['Exercises'][0]['Hold'])
 
-print(beskeder)
+print(lec.getSchedule())
