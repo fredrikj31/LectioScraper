@@ -89,10 +89,26 @@ class Lectio:
 
 		scheduleBrick = soup.findAll("a", {"class": "s2skemabrik"});
 
-		for brick in scheduleBrick:
-			print(brick['data-additionalinfo'])
-			print("---")
+		jsonText = {"Exercises": []}
 
+		skemaList = {}
+
+		skemaTitles = ["Team", "Date", "Time", "Teacher", "Classroom"]
+
+		Id = 0
+
+		for brick in scheduleBrick:
+			skemabrik = brick['data-additionalinfo']
+
+			skemaInfo = skemabrik.splitlines()
+
+
+
+			skemaList.setdefault(skemaTitles[Id], skema)
+
+			print(skemaInfo)
+			#for skemabrikInformation in skemaInfo:
+			#	skemaList.setdefault()
 		
 
 
