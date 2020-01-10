@@ -19,8 +19,7 @@ class Lectio:
 		result = session.get(LOGIN_URL)
 		# print(result.text)
 		tree = html.fromstring(result.text)
-		authenticity_token = list(
-			set(tree.xpath("//input[@name='__EVENTVALIDATION']/@value")))[0]
+		authenticity_token = list(set(tree.xpath("//input[@name='__EVENTVALIDATION']/@value")))[0]
 
 		# Create payload
 		payload = {
@@ -38,9 +37,7 @@ class Lectio:
 
 		# Getting student id
 		dashboard = session.get("https://www.lectio.dk/lectio/680/forside.aspx")
-
 		soup = BeautifulSoup(dashboard.text, features="html.parser")
-
 		studentIdFind = soup.find("a", {"id": "s_m_HeaderContent_subnavigator_ctl01"}, href=True)
 
 		self.studentId = (studentIdFind['href']).replace("/lectio/680/forside.aspx?elevid=", '')
@@ -53,25 +50,17 @@ class Lectio:
 
 		# Scrape url
 		result = self.Session.get(EXERCISE_URL)
-
+		
 		soup = BeautifulSoup(result.text, features="html.parser")
-
 		table = soup.find("table", {"id": "s_m_Content_Content_ExerciseGV"})
-
-
-
 		jsonText = {"Exercises": []}
-
 		tableHeaders = table.findAll('th')
-
 		exerciseList = {}
 
 		Id = 0
-
 		for row in table.findAll('td'):
 			exerciseList.setdefault(tableHeaders[Id].text.replace("'", '"'), row.text)
 			Id += 1
-
 			if Id == 11:
 				Id = 0
 				jsonText['Exercises'].append(exerciseList)
@@ -79,33 +68,23 @@ class Lectio:
 
 		return jsonText
 
-
-	def getSchedule(self): #Need some work!
+	#Need some work!
+	def getSchedule(self):
 		SCHEDULE_URL = "https://www.lectio.dk/lectio/680/SkemaNy.aspx?type=elev&elevid={}".format(self.studentId)
 
 		result = self.Session.get(SCHEDULE_URL)
 
 		soup = BeautifulSoup(result.text, features="html.parser")
-
 		scheduleBrick = soup.findAll("a", {"class": "s2skemabrik"});
-
 		jsonText = {"Exercises": []}
-
 		skemaList = {}
-
 		skemaTitles = ["Team", "Date", "Time", "Teacher", "Classroom"]
 
 		Id = 0
-
 		for brick in scheduleBrick:
 			skemabrik = brick['data-additionalinfo']
-
 			skemaInfo = skemabrik.splitlines()
-
-
-
-			skemaList.setdefault(skemaTitles[Id], skema)
-
+			skemaList.setdefault(skemaTitles[Id], skemaInfo)
 			print(skemaInfo)
 			#for skemabrikInformation in skemaInfo:
 			#	skemaList.setdefault()
