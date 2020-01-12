@@ -45,6 +45,27 @@ class Lectio:
 		self.Session = session
 
 
+	#Get school id's
+	def getSchools(self):
+		SCHOOLS_URL = "https://www.lectio.dk/lectio/login_list.aspx"
+
+		result = requests.get(SCHOOLS_URL)
+
+		SchoolsList = {}
+
+		soup = BeautifulSoup(result.text, features="html.parser")
+		schools = soup.findAll("a", href=True)
+		for school in schools:
+			schoolId = school['href'].split('/')
+			if len(schoolId) == 4:
+				SchoolsList[school.getText()] = schoolId[2]
+			else:
+				continue
+
+		return SchoolsList
+
+
+
 	def getExercises(self):
 		EXERCISE_URL = "https://www.lectio.dk/lectio/680/OpgaverElev.aspx?elevid={}".format(self.studentId)
 
@@ -53,7 +74,7 @@ class Lectio:
 		
 		soup = BeautifulSoup(result.text, features="html.parser")
 		table = soup.find("table", {"id": "s_m_Content_Content_ExerciseGV"})
-		jsonText = {"Exercises": []}
+		Exercises = []
 		tableHeaders = table.findAll('th')
 		exerciseList = {}
 
@@ -63,10 +84,11 @@ class Lectio:
 			Id += 1
 			if Id == 11:
 				Id = 0
-				jsonText['Exercises'].append(exerciseList)
+				Exercises.append(exerciseList)
 				exerciseList = {}
 
-		return jsonText
+		return Exercises
+
 
 	#Need some work!
 	def getSchedule(self):
@@ -75,23 +97,13 @@ class Lectio:
 		result = self.Session.get(SCHEDULE_URL)
 
 		soup = BeautifulSoup(result.text, features="html.parser")
-		scheduleBrick = soup.findAll("a", {"class": "s2skemabrik"});
-		jsonText = {"Exercises": []}
-		skemaList = {}
-		skemaTitles = ["Team", "Date", "Time", "Teacher", "Classroom"]
+		scheduleContainer = soup.findAll('tr')
 
-		Id = 0
-		for brick in scheduleBrick:
-			skemabrik = brick['data-additionalinfo']
-			skemaInfo = skemabrik.splitlines()
-			skemaList.setdefault(skemaTitles[Id], skemaInfo)
-			print(skemaInfo)
-			#for skemabrikInformation in skemaInfo:
-			#	skemaList.setdefault()
+		for schedule in scheduleContainer:
+			print(schedule)
 		
 
 
-	#STILL NEED TO FIX THIS ONE!
 	def getMessages(self):
 		MESSAGE_URL = "https://www.lectio.dk/lectio/{}/beskeder2.aspx?type=&elevid={}&selectedfolderid=-70".format(self.SchoolId, self.studentId)
 
@@ -101,21 +113,32 @@ class Lectio:
 
 		table = soup.find("table", {"id": "s_m_Content_Content_threadGV"})
 
-		jsonText = {"Messages": []}
-
-		tableHeaders = table.findAll('th')
-
-		messageList = {}
-
 		Id = 0
+		Messages = []
+		Message = {}
 
-		"""for row in table.findAll('td'):
-			messageList.setdefault(tableHeaders[Id].text, row.text)
-			Id += 1
+		Informations = []
 
-			if Id == 11:
-				Id = 0
-				jsonText['Messages'].append(messageList)
-				messageList = {}"""
+		for row in table.findAll('tr'):
+			if Id == 0:
+				Id += 1
+				continue
+			else:
+				#print("THIS IS A TEST")
+				for column in row:
+					Informations.append(column)
 
-		return tableHeaders
+				Message['Title'] = Informations[4].getText().strip()
+				Message['Last Message'] = Informations[5].getText().strip()
+				Message['First Message'] = Informations[6].getText().strip()
+				for elem in Informations[7]:
+					recipients = elem['title'].strip()
+				Message['Recipients'] = recipients
+				Message['Last Update'] = Informations[8].getText().strip()
+					
+				Messages.append(Message)
+				Informations = []
+				Message = {}
+			
+
+		return Messages
