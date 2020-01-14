@@ -97,11 +97,15 @@ class Lectio:
 		result = self.Session.get(SCHEDULE_URL)
 
 		soup = BeautifulSoup(result.text, features="html.parser")
-		scheduleContainer = soup.findAll('tr')
+		scheduleContainer = soup.findAll('div', {"class": "s2skemabrikcontainer"})
 
 		for schedule in scheduleContainer:
-			print(schedule)
-		
+			for time in schedule.findAll('a', {"class": "s2skemabrik"}):
+				print(" ")
+				print(" ")
+				print(time['data-additionalinfo'].split("\n"))
+				print(" ")
+				print(" ")
 
 
 	def getMessages(self):
