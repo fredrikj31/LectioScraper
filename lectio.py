@@ -103,7 +103,15 @@ class Lectio:
 			for time in schedule.findAll('a', {"class": "s2skemabrik"}):
 				print(" ")
 				print(" ")
-				print(time['data-additionalinfo'].split("\n"))
+				row = time['data-additionalinfo'].split("\n")
+				print(row)
+				#17/1-2020 13:20 til 14:20'
+				if re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[0]):
+					print("WE FOUND A TIMESTAMP")
+					time = row[0]
+				elif re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[1]):
+					print("WE FOUND A TIMESTAMP")
+					time = row[1]
 				print(" ")
 				print(" ")
 
