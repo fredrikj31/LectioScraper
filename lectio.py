@@ -104,6 +104,11 @@ class Lectio:
 		for schedule in scheduleContainer:
 			for time in schedule.findAll('a', {"class": "s2skemabrik"}):
 				rows = time['data-additionalinfo']
+				
+				#Getting the lesson id
+				lessonIdSplit1 = time['href'].split("absid=")
+				lessonIdSplit2 = lessonIdSplit1[1].split("&prevurl=")
+				lessonId = lessonIdSplit2[0]
 
 				row = rows.split("\n")
 
@@ -115,6 +120,7 @@ class Lectio:
 					if re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[1]):
 						#print("WE FOUND A TIMESTAMP")
 						
+						Schedule["LessonId"] = lessonId
 						Schedule["Status"] = row[0]
 						Schedule["Title"] = ""
 						Schedule["Date"] = row[1]
@@ -130,6 +136,7 @@ class Lectio:
 						#print("WE FOUND A TIMESTAMP")
 						time = row[1]
 
+						Schedule["LessonId"] = lessonId
 						Schedule["Status"] = row[0]
 						Schedule["Title"] = row[1]
 						Schedule["Date"] = row[2]
@@ -146,6 +153,7 @@ class Lectio:
 					if re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[0]):
 						#print("WE FOUND A TIMESTAMP")
 						
+						Schedule["LessonId"] = lessonId
 						Schedule["Status"] = ""
 						Schedule["Title"] = ""
 						Schedule["Date"] = row[0]
@@ -160,6 +168,7 @@ class Lectio:
 					elif re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[1]):
 						#print("WE FOUND A TIMESTAMP")
 
+						Schedule["LessonId"] = lessonId
 						Schedule["Status"] = ""
 						Schedule["Title"] = row[0]
 						Schedule["Date"] = row[1]
