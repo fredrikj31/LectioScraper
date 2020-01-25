@@ -90,7 +90,6 @@ class Lectio:
 		return Exercises
 
 
-	#Need some work!
 	def getSchedule(self):
 		SCHEDULE_URL = "https://www.lectio.dk/lectio/680/SkemaNy.aspx?type=elev&elevid={}".format(self.studentId)
 
@@ -99,21 +98,79 @@ class Lectio:
 		soup = BeautifulSoup(result.text, features="html.parser")
 		scheduleContainer = soup.findAll('div', {"class": "s2skemabrikcontainer"})
 
+		fullSchedule = []
+		Schedule = {}
+
 		for schedule in scheduleContainer:
 			for time in schedule.findAll('a', {"class": "s2skemabrik"}):
-				print(" ")
-				print(" ")
-				row = time['data-additionalinfo'].split("\n")
-				print(row)
-				#17/1-2020 13:20 til 14:20'
-				if re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[0]):
-					print("WE FOUND A TIMESTAMP")
-					time = row[0]
-				elif re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[1]):
-					print("WE FOUND A TIMESTAMP")
-					time = row[1]
-				print(" ")
-				print(" ")
+				rows = time['data-additionalinfo']
+
+				row = rows.split("\n")
+
+
+				#Check for status
+				if row[0] == "Aflyst!" or row[0] == "Ændret!":
+					#Check for date
+					#17/1-2020 13:20 til 14:20'
+					if re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[1]):
+						#print("WE FOUND A TIMESTAMP")
+						
+						Schedule["Status"] = row[0]
+						Schedule["Title"] = ""
+						Schedule["Date"] = row[1]
+						Schedule["Team"] = row[2]
+						Schedule["Teacher"] = row[3]
+						Schedule["Room"] = row[4]
+
+						fullSchedule.append(Schedule)
+						Schedule = {}
+
+
+					elif re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[2]):
+						#print("WE FOUND A TIMESTAMP")
+						time = row[1]
+
+						Schedule["Status"] = row[0]
+						Schedule["Title"] = row[1]
+						Schedule["Date"] = row[2]
+						Schedule["Team"] = row[3]
+						Schedule["Teacher"] = row[4]
+						Schedule["Room"] = row[5]
+
+						fullSchedule.append(Schedule)
+						Schedule = {}
+
+				else:
+					#Check for date
+					#17/1-2020 13:20 til 14:20'
+					if re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[0]):
+						#print("WE FOUND A TIMESTAMP")
+						
+						Schedule["Status"] = ""
+						Schedule["Title"] = ""
+						Schedule["Date"] = row[0]
+						Schedule["Team"] = row[1]
+						Schedule["Teacher"] = row[2]
+						Schedule["Room"] = row[3]
+
+						fullSchedule.append(Schedule)
+						Schedule = {}
+
+
+					elif re.match('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}', row[1]):
+						#print("WE FOUND A TIMESTAMP")
+
+						Schedule["Status"] = ""
+						Schedule["Title"] = row[0]
+						Schedule["Date"] = row[1]
+						Schedule["Team"] = row[2]
+						Schedule["Teacher"] = row[3]
+						Schedule["Room"] = row[4]
+
+						fullSchedule.append(Schedule)
+						Schedule = {}
+
+		return fullSchedule
 
 
 	def getMessages(self):
