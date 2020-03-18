@@ -84,20 +84,31 @@ def getSchedule(self, Session, StudentId):
 
 		#If list is empty (There is no room or teacher) then make list empty
 		if len(time) == 0:
-			time = [' ']
+			time = " "
+		
 		if len(team) == 0:
-			team = [' ']
+			team = " "
+		else:
+			team = team[0].split(":")[1].strip()
+		
 		if len(teacher) == 0:
-			teacher = [' ']
+			teacher = " "
+		else:
+			teacher = teacher[0].split(":")[1].strip()
+		
 		if len(room) == 0:
-			room = [' ']
+			room = " "
+		else:
+			room = room[0].split(":")[1].strip()
+
+		#.split(":")[2]
 
 		Schedule['Status'] = status
 		Schedule['Title'] = title
-		Schedule['Time'] = time[0]
-		Schedule['Team'] = team[0]
-		Schedule['Teacher'] = teacher[0]
-		Schedule['Room'] = room[0]
+		Schedule['Time'] = time
+		Schedule['Team'] = team
+		Schedule['Teacher'] = teacher
+		Schedule['Room'] = room
 		
 
 
