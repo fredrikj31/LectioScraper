@@ -85,6 +85,8 @@ def getSchedule(self, Session, StudentId):
 		#If list is empty (There is no room or teacher) then make list empty
 		if len(time) == 0:
 			time = " "
+		else:
+			time = time[0]
 		
 		if len(team) == 0:
 			team = " "
