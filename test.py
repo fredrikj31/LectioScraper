@@ -1,22 +1,29 @@
 from details import lectioUsername, lectioPassword
 from lectio import Lectio
-import pprint
-
-pp = pprint.PrettyPrinter(indent=4)
 
 lec = Lectio(lectioUsername, lectioPassword, "680")
 
-# Get specified message
-#pp.pprint(lec.getMessage("40705529227"))
+# Besked
+#print(lec.getMessage("40705529227"))
 
-# Get Exercises
-#pp.pprint(lec.getExercises())
+# Opgaver
+#print(lec.getExercises())
 
-# Get all messages
-#pp.pprint(lec.getMessages())
+# Opgave
+#print(lec.getExercise("37663993333"))
 
-# Get all schools
-#pp.pprint(lec.getSchools())
+# Beskeder
+#print(lec.getMessages())
 
-# Get Schedule
-pp.pprint(lec.getSchedule())
+# Skoler
+#print(lec.getSchools())
+
+# Skema
+#print(lec.getSchedule())
+
+# Studieretning
+#print(lec.getStudieretning())
+
+# Unread Messages
+#print(lec.getUnreadMessages())
+

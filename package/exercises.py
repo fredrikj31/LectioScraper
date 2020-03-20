@@ -3,8 +3,8 @@ import requests
 from lxml import html
 from bs4 import BeautifulSoup
 
-def Exercises(self, Session):
-	EXERCISE_URL = "https://www.lectio.dk/lectio/680/OpgaverElev.aspx?elevid={}".format(self.studentId)
+def exercises(self, Session, SchoolId, StudentId):
+	EXERCISE_URL = "https://www.lectio.dk/lectio/{}/OpgaverElev.aspx?elevid={}".format(SchoolId, StudentId)
 
 	# Scrape url
 	result = Session.get(EXERCISE_URL)

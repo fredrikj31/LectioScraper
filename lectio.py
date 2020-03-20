@@ -6,7 +6,7 @@ from details import lectioUsername, lectioPassword
 
 
 #Packages
-from package import exercises, schools, messages, schedule, message
+from package import exercises, exercise, message, messages, schedule, schools, studyProgramme, unreadMessages
 
 
 class Lectio:
@@ -48,27 +48,42 @@ class Lectio:
 
 		self.Session = session
 
-	def getExercises(self):
-		result = exercises.Exercises(self, self.Session)
+	def getSchools(self):
+		result = schools.schools(self)
 
 		return result
 
-	def getSchools(self):
-		result = schools.getSchools()
+	def getExercise(self, ExerciseId):
+		result = exercise.exercise(self, self.Session, self.SchoolId, self.studentId, ExerciseId)
+
+		return result
+	
+	def getExercises(self):
+		result = exercises.exercises(self, self.Session, self.SchoolId, self.studentId)
 
 		return result
 	
 	def getMessages(self):
-		result = messages.getMessages(self, self.Session, self.SchoolId, self.studentId)
+		result = messages.messages(self, self.Session, self.SchoolId, self.studentId)
 
 		return result
 	
 	def getMessage(self, MessageId):
-		result = message.getMessage(self, self.Session, self.SchoolId, self.studentId, MessageId)
+		result = message.message(self, self.Session, self.SchoolId, self.studentId, MessageId)
 
 		return result
 	
 	def getSchedule(self):
-		result = schedule.getSchedule(self, self.Session, self.studentId)
+		result = schedule.schedule(self, self.Session, self.SchoolId, self.studentId)
+
+		return result
+
+	def getStudyProgramme(self):
+		result = studyProgramme.studyProgramme(self, self.Session, self.SchoolId, self.studentId)
+
+		return result
+
+	def getUnreadMessages(self):
+		result = unreadMessages.unreadMessages(self, self.Session, self.SchoolId)
 
 		return result

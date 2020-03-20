@@ -3,18 +3,8 @@ import requests
 from lxml import html
 from bs4 import BeautifulSoup
 
-"""#Title exists
-Schedule["LessonId"] = lessonId
-Schedule["Status"] = row[0]
-Schedule["Title"] = row[1]
-Schedule["Date"] = row[2]
-Schedule["Team"] = row[3]
-Schedule["Teacher"] = row[3]
-Schedule["Room"] = row[4]"""
-
 # FINISH OUTPUT
 """
-
 [
 	{
 		"LessonId": "(Lesson Id)",
@@ -24,15 +14,17 @@ Schedule["Room"] = row[4]"""
 		"Team": "(Team)",
 		"Teacher": "(Teacher)",
 		"Room": "(Room)"
+	},
+	{
+		...
 	}
 ]
-
 
 """
 
 
-def getSchedule(self, Session, StudentId):
-	SCHEDULE_URL = "https://www.lectio.dk/lectio/680/SkemaNy.aspx?type=elev&elevid={}".format(StudentId)
+def schedule(self, Session, SchoolId, StudentId):
+	SCHEDULE_URL = "https://www.lectio.dk/lectio/{}/SkemaNy.aspx?type=elev&elevid={}".format(SchoolId, StudentId)
 
 	result = Session.get(SCHEDULE_URL)
 
@@ -49,6 +41,11 @@ def getSchedule(self, Session, StudentId):
 		teamStructure = re.compile('Hold: ')
 		teacherStructure = re.compile('Lærer.*: ')
 		roomStructure = re.compile('Lokale: ')
+
+		#Getting the lesson id
+		lessonIdSplit1 = schedule['href'].split("absid=")
+		lessonIdSplit2 = lessonIdSplit1[1].split("&prevurl=")
+		lessonId = lessonIdSplit2[0]
 		
 		
 		#Check if there is a status
@@ -111,6 +108,7 @@ def getSchedule(self, Session, StudentId):
 		Schedule['Team'] = team
 		Schedule['Teacher'] = teacher
 		Schedule['Room'] = room
+		Schedule['Id'] = lessonId
 		
 
 

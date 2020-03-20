@@ -3,7 +3,7 @@ import requests
 from lxml import html
 from bs4 import BeautifulSoup
 
-def getMessages(self, Session, SchoolId, StudentId):
+def messages(self, Session, SchoolId, StudentId):
 	MESSAGE_URL = "https://www.lectio.dk/lectio/{}/beskeder2.aspx?type=&elevid={}&selectedfolderid=-70".format(SchoolId, StudentId)
 
 	result = Session.get(MESSAGE_URL)

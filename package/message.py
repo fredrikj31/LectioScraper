@@ -3,7 +3,7 @@ import requests
 from lxml import html
 from bs4 import BeautifulSoup
 
-def getMessage(self, Session, SchoolId, StudentId, MessageId):
+def message(self, Session, SchoolId, StudentId, MessageId):
 	MESSAGE_URL = "https://www.lectio.dk/lectio/{}/beskeder2.aspx?type=showthread&elevid={}&selectedfolderid=-70&id={}".format(SchoolId, StudentId, MessageId)
 
 	result = Session.get(MESSAGE_URL)
@@ -15,20 +15,20 @@ def getMessage(self, Session, SchoolId, StudentId, MessageId):
 	#Example output
 	"""
 	{
-		"MessageTitle": "Lorem Ipsum",
-		"Author": "John Doe",
-		"Recipients": "Alle 1. HTX elever, "
-		"Created At": "11/03/2020 20:21"
-		"Responses" [
+		"Title": "Lorem Ipsum",
+		"Forfatter": "John Doe",
+		"Modtagere": "Alle 1. HTX elever, "
+		"Oprettet": "11/03/2020 20:21"
+		"Svar" [
 			{
-				"Author": "Bo Jensen"
-				"Message": "Lorem Ipsum",
-				"Time": "11/03/2020 21:15"
+				"Forfatter": "Bo Jensen"
+				"Besked": "Lorem Ipsum",
+				"Tid": "11/03/2020 21:15"
 			},
 			{
-				"Author": "Bo Jensen"
-				"Message": "Lorem Ipsum",
-				"Time": "11/03/2020 21:15"
+				"Forfatter": "Bo Jensen"
+				"Besked": "Lorem Ipsum",
+				"Tid": "11/03/2020 21:15"
 			},
 		]
 	}
@@ -54,9 +54,9 @@ def getMessage(self, Session, SchoolId, StudentId, MessageId):
 		OneMessageTime = messageBrick.find("td").getText().strip().split(", ")[1]
 		OneMessageText = messageBrick.find("div").getText().strip().replace('\n', '')
 
-		OneMessage["Author"] = OneMessageAuthor
-		OneMessage["Time"] = OneMessageTime
-		OneMessage["Message"] = OneMessageText
+		OneMessage["Forfatter"] = OneMessageAuthor
+		OneMessage["Tid"] = OneMessageTime
+		OneMessage["Besked"] = OneMessageText
 
 		Messages.append(OneMessage)
 		OneMessage = {}
@@ -66,10 +66,10 @@ def getMessage(self, Session, SchoolId, StudentId, MessageId):
 	#messageText = messageTextTable.find("li").find("div").getText().strip().replace('\n', '')
 
 	#Setting the final json up
-	MessageOutput["MessageTitle"] = messageTitle
-	MessageOutput["Author"] = messageAuthor
-	MessageOutput["Recipients"] = messageRecipients
-	MessageOutput["Created"] = messageCreatedAt
-	MessageOutput["Responses"] = Messages
+	MessageOutput["Title"] = messageTitle
+	MessageOutput["Forfatter"] = messageAuthor
+	MessageOutput["Modtagere"] = messageRecipients
+	MessageOutput["Oprettet"] = messageCreatedAt
+	MessageOutput["Svar"] = Messages
 
 	return MessageOutput
