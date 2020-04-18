@@ -22,7 +22,7 @@ We have listed the version we built the library with, not sure if the script wil
 ## Installation
 You can install Lectio Scraper via 2 methods.
 
-1. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+**1.** Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
  
 **Disclaimer!** *This normally comes with python.*
 
@@ -30,7 +30,7 @@ You can install Lectio Scraper via 2 methods.
 pip install LectioScraper
 ```
 
-2. You can visit our [releases](https://github.com/fredrikj31/LectioScraper/releases) on Github where you can clone the library from there.
+**2.** You can visit our [releases](https://github.com/fredrikj31/LectioScraper/releases) on Github where you can clone the library from there.
 
 ## Usage Example
 
