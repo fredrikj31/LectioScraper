@@ -49,5 +49,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## Errors/Help
+If you encounter any errors or want help with the script, you can always submit an issue on the [Github repository](https://github.com/fredrikj31/LectioScraper/issues), and I will try to help as fast I can.
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
