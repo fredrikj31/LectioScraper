@@ -37,7 +37,7 @@ pip install LectioScraper
 ```python
 import Lectio
 
-lec = Lectio(lectioUsername, lectioPassword, School Id)
+lec = Lectio(lectioUsername, lectioPassword, SchoolId)
 
 lec.getExercises() # Print out your exercises
 ```
