@@ -17,6 +17,17 @@ def exercises(self, Session, SchoolId, StudentId):
 
 	Id = 0
 	for row in table.findAll('td'):
+		findExerciseId = row.findAll('a')
+		
+		if len(findExerciseId):
+			exerciseIdSplit1 = str(findExerciseId[0])
+			exerciseIdSplit2 = exerciseIdSplit1.split("&")[1]
+			exerciseId = exerciseIdSplit2.split("exerciseid=")[1]
+
+
+			#print(exerciseId)
+			exerciseList['Id'] = exerciseId
+
 		exerciseList.setdefault(tableHeaders[Id].text.replace("'", '"'), row.text)
 		Id += 1
 		if Id == 11:

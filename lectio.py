@@ -40,11 +40,11 @@ class Lectio:
 		result = session.post(LOGIN_URL, data=payload, headers=dict(referer=LOGIN_URL))
 
 		# Getting student id
-		dashboard = session.get("https://www.lectio.dk/lectio/680/forside.aspx")
+		dashboard = session.get("https://www.lectio.dk/lectio/" + self.SchoolId + "/forside.aspx")
 		soup = BeautifulSoup(dashboard.text, features="html.parser")
 		studentIdFind = soup.find("a", {"id": "s_m_HeaderContent_subnavigator_ctl01"}, href=True)
 
-		self.studentId = (studentIdFind['href']).replace("/lectio/680/forside.aspx?elevid=", '')
+		self.studentId = (studentIdFind['href']).replace("/lectio/" + self.SchoolId + "/forside.aspx?elevid=", '')
 
 		self.Session = session
 

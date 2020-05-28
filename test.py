@@ -7,7 +7,7 @@ lec = Lectio(lectioUsername, lectioPassword, "680")
 #print(lec.getMessage("40705529227"))
 
 # Opgaver
-#print(lec.getExercises())
+print(lec.getExercises())
 
 # Opgave
 #print(lec.getExercise("37663993333"))
