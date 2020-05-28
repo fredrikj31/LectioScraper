@@ -40,10 +40,18 @@ def schedule(self, Session, SchoolId, StudentId):
 		timeStructure = re.compile('\d{2}/\d+-\d{4} \d{2}:\d{2} til \d{2}:\d{2}')
 		teamStructure = re.compile('Hold: ')
 		teacherStructure = re.compile('Lærer.*: ')
-		roomStructure = re.compile('Lokale: ')
+		roomStructure = re.compile('Lokale.*: ')
 
 		#Getting the lesson id
-		lessonIdSplit1 = schedule['href'].split("absid=")
+		# Get the lesson if normal
+		if "absid" in schedule['href']:
+			lessonIdSplit1 = schedule['href'].split("absid=")
+		elif "ProeveholdId" in schedule['href']:
+			lessonIdSplit1 = schedule['href'].split("ProeveholdId=")
+		else:
+			print("Error")
+			return False
+		
 		lessonIdSplit2 = lessonIdSplit1[1].split("&prevurl=")
 		lessonId = lessonIdSplit2[0]
 		

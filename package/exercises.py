@@ -28,7 +28,7 @@ def exercises(self, Session, SchoolId, StudentId):
 			#print(exerciseId)
 			exerciseList['Id'] = exerciseId
 
-		exerciseList.setdefault(tableHeaders[Id].text.replace("'", '"'), row.text)
+		exerciseList.setdefault(tableHeaders[Id].text.replace("'", '"'), row.text.replace(u"\xa0", ' ').replace(u"\n", '').replace(u"\r", ''))
 		Id += 1
 		if Id == 11:
 			Id = 0

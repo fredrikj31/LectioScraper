@@ -6,7 +6,7 @@ from details import lectioUsername, lectioPassword
 
 
 #Packages
-from package import exercises, exercise, message, messages, schedule, schools, studyProgramme, unreadMessages
+from package import exercises, exercise, message, messages, schedule, schools, studyProgramme, unreadMessages, grades
 
 
 class Lectio:
@@ -85,5 +85,10 @@ class Lectio:
 
 	def getUnreadMessages(self):
 		result = unreadMessages.unreadMessages(self, self.Session, self.SchoolId)
+
+		return result
+	
+	def getGrades(self):
+		result = grades.grades(self, self.Session, self.SchoolId, self.studentId)
 
 		return result
