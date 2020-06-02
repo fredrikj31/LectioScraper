@@ -1,6 +1,6 @@
 # [Lectio Scraper](https://fredrikj31.github.io/LectioScraper/)
 
-Lectio Scraper is a Python library for web scraping Lectio. **This only works with students. NOT teachers.**
+Lectio Scraper is a Python library for web scraping Lectio. **This only works for students accounts. NOT teachers.**
 
 ##### What is Lectio?
 
