@@ -1,12 +1,12 @@
 # ![Lectio Scraper](https://raw.githubusercontent.com/fredrikj31/LectioScraper/master/banner.png)
 
-Lectio Scraper is a Python library for web scraping Lectio. **This only works for students accounts. NOT teachers.**
+**Lectio Scraper** is a Python library for connecting with Lectio, to use for third party apps.
 
-##### What is Lectio?
+### ❔ What is Lectio?
 
-Lectio is a web-based communication system that schools in Denmark use. 
+Lectio is a very popular web-based communication software, that many of the high schools in Denmark use.
 
-## Requirements
+## 📋 Requirements
 Lectio Scraper needs these tool and packages to run. You only need PIP if you install Lectio Scraper through the pip installer.
 
 #### Tools:
@@ -20,7 +20,7 @@ We have listed the version we built the library with, not sure if the script wil
 - [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/) 4.6.3
 
 
-## Installation
+## 🔧 Installation
 You can install Lectio Scraper via 2 methods.
 
 **1.** Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
@@ -33,7 +33,7 @@ pip install LectioScraper
 
 **2.** You can visit our [releases](https://github.com/fredrikj31/LectioScraper/releases) on Github where you can clone the library from there.
 
-## Usage Example
+## 📖 Usage Example
 
 ```python
 import Lectio
@@ -45,13 +45,13 @@ lec.getExercises() # Print out your exercises
 
 For the full documentation visit the official documentation [here](https://fredrikj31.github.io/LectioScraper/).
 
-## Contributing
+## 🤝 Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## Errors/Help
+## ❗️ Errors/Help
 If you encounter any errors or want help with the script, you can always submit an issue on the [Github repository](https://github.com/fredrikj31/LectioScraper/issues), and I will try to help as fast I can.
 
-## License
+## 🖋 License
 [MIT](https://choosealicense.com/licenses/mit/)
