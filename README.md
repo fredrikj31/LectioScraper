@@ -1,4 +1,4 @@
-# ![Lectio Scraper](https://raw.githubusercontent.com/fredrikj31/LectioScraper/master/logo.png)
+# ![Lectio Scraper](https://raw.githubusercontent.com/fredrikj31/LectioScraper/master/banner.png)
 
 Lectio Scraper is a Python library for web scraping Lectio. **This only works for students accounts. NOT teachers.**
 
