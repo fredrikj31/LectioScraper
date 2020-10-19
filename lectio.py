@@ -27,8 +27,8 @@ class Lectio:
 
 		# Create payload
 		payload = {
-			"m$Content$username2": self.Username,
-			"m$Content$password2": self.Password,
+			"m$Content$username": self.Username,
+			"m$Content$password": self.Password,
 			"m$Content$passwordHidden": self.Password,
 			"__EVENTVALIDATION": authenticity_token,
 			"__EVENTTARGET": "m$Content$submitbtn2",
