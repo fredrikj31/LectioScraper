@@ -2,11 +2,10 @@ import re
 import requests
 from lxml import html
 from bs4 import BeautifulSoup
-from details import lectioUsername, lectioPassword
 
 
 #Packages
-from package import exercises, exercise, message, messages, schedule, schools, studyProgramme, unreadMessages, grades
+from src import exercises, exercise, message, messages, schedule, schools, studyProgramme, unreadMessages, grades, dashboard
 
 
 class Lectio:
@@ -90,5 +89,10 @@ class Lectio:
 	
 	def getGrades(self):
 		result = grades.grades(self, self.Session, self.SchoolId, self.studentId)
+
+		return result
+
+	def getDashboard(self):
+		result = dashboard.dashboard(self, self.Session, self.SchoolId)
 
 		return result

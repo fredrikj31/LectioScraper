@@ -33,13 +33,13 @@ def messages(self, Session, SchoolId, StudentId):
 			MessageIdReal = MessageIdStrip.split("');")[0]
 
 			Message['Id'] = MessageIdReal
-			Message['Title'] = Informations[4].getText().strip()
-			Message['Last Message'] = Informations[5].getText().strip()
-			Message['First Message'] = Informations[6].getText().strip()
+			Message['Title'] = Informations[4].getText().strip().replace("\r", "").replace("\n", " ")
+			Message['Last Message'] = Informations[5].getText().strip().replace("\r", "").replace("\n", " ")
+			Message['First Message'] = Informations[6].getText().strip().replace("\r", "").replace("\n", " ")
 			for elem in Informations[7]:
-				recipients = elem['title'].strip()
+				recipients = elem['title'].strip().replace("\r", "").replace("\n", " ")
 			Message['Recipients'] = recipients
-			Message['Last Update'] = Informations[8].getText().strip()
+			Message['Last Update'] = Informations[8].getText().strip().replace("\r", "").replace("\n", " ")
 					
 			Messages.append(Message)
 			Informations = []

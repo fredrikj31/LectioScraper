@@ -53,5 +53,10 @@ Please make sure to update tests as appropriate.
 ## ❗️ Errors/Help
 If you encounter any errors or want help with the script, you can always submit an issue on the [Github repository](https://github.com/fredrikj31/LectioScraper/issues), and I will try to help as fast I can.
 
+## Development Information
+For running scripts: Get into the library folder/root folder, then run `python -m tests.{test file name}`.
+
+**Example:** `python -m tests.test_exercises`
+
 ## 🖋 License
 [MIT](https://choosealicense.com/licenses/mit/)
