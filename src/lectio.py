@@ -43,9 +43,15 @@ class Lectio:
 		soup = BeautifulSoup(dashboard.text, features="html.parser")
 		studentIdFind = soup.find("a", {"id": "s_m_HeaderContent_subnavigator_ctl01"}, href=True)
 
-		self.studentId = (studentIdFind['href']).replace("/lectio/" + self.SchoolId + "/forside.aspx?elevid=", '')
+		print(studentIdFind)
 
-		self.Session = session
+		if (studentIdFind == None):
+			print("Forkerte login detaljer")
+			exit()
+		else:
+			self.studentId = (studentIdFind['href']).replace("/lectio/" + self.SchoolId + "/forside.aspx?elevid=", '')
+
+			self.Session = session
 
 	def getSchools(self):
 		result = schools.schools(self)
