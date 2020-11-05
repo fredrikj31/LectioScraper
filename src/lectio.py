@@ -3,10 +3,8 @@ import requests
 from lxml import html
 from bs4 import BeautifulSoup
 
-
 #Packages
 from src import exercises, exercise, message, messages, schedule, schools, studyProgramme, unreadMessages, grades, dashboard
-
 
 class Lectio:
 
@@ -42,8 +40,6 @@ class Lectio:
 		dashboard = session.get("https://www.lectio.dk/lectio/" + self.SchoolId + "/forside.aspx")
 		soup = BeautifulSoup(dashboard.text, features="html.parser")
 		studentIdFind = soup.find("a", {"id": "s_m_HeaderContent_subnavigator_ctl01"}, href=True)
-
-		print(studentIdFind)
 
 		if (studentIdFind == None):
 			print("Forkerte login detaljer")

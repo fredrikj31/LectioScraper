@@ -25,10 +25,6 @@ def dashboard(self, Session, SchoolId):
 		
 		rowObject["Priority"] = priority
 		rowObject["Text"] = row.findAll('td')[1].text.replace("\xa0", "").replace("\n", "")
-		
-		print("-----------------------------")
-		print(rowObject)
-		print("-----------------------------")
 
 		output.append(rowObject)
 		rowObject = {}
