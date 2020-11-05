@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 
 def dashboard(self, Session, SchoolId):
-	DASHBOARD_URL = "https://www.lectio.dk/lectio/680/forside.aspx".format(SchoolId)
+	DASHBOARD_URL = "https://www.lectio.dk/lectio/{}/forside.aspx".format(SchoolId)
 
 	result = Session.get(DASHBOARD_URL)
 	
