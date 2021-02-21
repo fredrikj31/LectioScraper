@@ -30,6 +30,7 @@ class Lectio:
 			"__EVENTVALIDATION": authenticity_token,
 			"__EVENTTARGET": "m$Content$submitbtn2",
 			"__EVENTARGUMENT": "",
+			"masterfootervalue": "X1!ÆØÅ",
 			"LectioPostbackId": ""
 		}
 
